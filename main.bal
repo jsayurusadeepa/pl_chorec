@@ -30,7 +30,7 @@ public function main() returns error? {
 		mysql:Client db = check new ("sql12.freemysqlhosting.net", "sql12599595", "ZMdQjtRK4Q", "sql12599595", 3306);
 		
         _ = check db->execute(`
-            INSERT INTO MARKS_STORE.STUD_MARKS_STORE (stud_id, stud_name, stud_marks)
+            INSERT INTO sql12599595.STUD_MARKS_STORE (stud_id, stud_name, stud_marks)
             VALUES (${pl_stud_id}, ${pl_stud_name}, ${pl_student_marks});`);
 
 }
