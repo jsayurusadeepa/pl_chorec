@@ -1,33 +1,36 @@
 import ballerina/http;
 import ballerinax/mysql;
+import ballerina/io;
 import ballerinax/mysql.driver as _;
 
-type Marks record {|
-    int pl_stud_id;
-    string pl_stud_name;
-    float pl_student_marks;
-|};
+string pl_stud_id = "";
+string pl_stud_name = "";
+float pl_student_marks = 0.0;
 
-type Res record {|
-    string res;
-|};
+type Mark record {
+string pl_stud_id;
+string pl_stud_name;
+float pl_student_marks;
+};
 
 public function main() returns error? {
-	
-	mysql:Client mysqlClient = check new (host = "localhost", port = 3306, user = "root",
-                                          password = "1qaz2wsx@");
-									
-		check mysqlClient.close();
+		
+		http:Client clientEndpoint = check new("https://rasubk1xpcqj5ta-p1ky6uccg1hmqavx.adb.ap-mumbai-1.oraclecloudapps.com/ords/pl_stud/pl_stud");
+		
+		Mark m = check clientEndpoint->get("/get_stud");
+		
+		pl_stud_id = m["pl_stud_id"];
+		pl_stud_name = m["pl_stud_name"];
+		pl_student_marks = m["pl_student_marks"];
+		
+		io:println(pl_stud_id);
+		io:println(pl_stud_name);
+		io:println(pl_student_marks);
 		
 		mysql:Client db = check new ("localhost", "root", "1qaz2wsx@", "MARKS_STORE", 3306);
 		
-		http:Client pl = check new ("http://localhost:8000");
-		
-		Marks[] prs = check pl->/;
+        _ = check db->execute(`
+            INSERT INTO MARKS_STORE.STUD_MARKS_STORE (stud_id, stud_name, stud_marks)
+            VALUES (${pl_stud_id}, ${pl_stud_name}, ${pl_student_marks});`);
 
-		foreach var {pl_stud_id, pl_stud_name, pl_student_marks} in prs {
-			_ = check db->execute(`
-				INSERT INTO MARKS_STORE.STUD_MARKS_STORE (stud_id, stud_name, stud_marks)
-				VALUES (${pl_stud_id}, ${pl_stud_name}, ${pl_student_marks});`);
-		}
 }
