@@ -27,10 +27,10 @@ public function main() returns error? {
 		io:println(pl_stud_name);
 		io:println(pl_student_marks);
 		
-		mysql:Client db = check new ("localhost", "root", "1qaz2wsx@", "MARKS_STORE", 3306);
+		mysql:Client db = check new ("sql12.freemysqlhosting.net", "sql12599595", "ZMdQjtRK4Q", "sql12599595", 3306);
 		
         _ = check db->execute(`
             INSERT INTO MARKS_STORE.STUD_MARKS_STORE (stud_id, stud_name, stud_marks)
-            VALUES (${pl_stud_id}, ${pl_stud_name}, ${pl_student_marks});`);
+            VALUES (${pl_stud_id}, ${pl_stud_name}, $n{pl_student_marks});`);
 
 }
