@@ -31,6 +31,6 @@ public function main() returns error? {
 		
         _ = check db->execute(`
             INSERT INTO MARKS_STORE.STUD_MARKS_STORE (stud_id, stud_name, stud_marks)
-            VALUES (${pl_stud_id}, ${pl_stud_name}, $n{pl_student_marks});`);
+            VALUES (${pl_stud_id}, ${pl_stud_name}, ${pl_student_marks});`);
 
 }
