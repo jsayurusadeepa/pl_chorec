@@ -27,7 +27,7 @@ public function main() returns error? {
 		io:println(pl_stud_name);
 		io:println(pl_student_marks);
 		
-		mysql:Client db = check new ("sql12.freemysqlhosting.net", "sql12599595", "ZMdQjtRK4Q", "sql12599595", 3306);
+		mysql:Client db = check new ("sql12.freemysqlhosting.net", "sql12601413", "GUqwgxIpUK", "sql12601413", 3306);
 		
         _ = check db->execute(`
             INSERT INTO sql12599595.STUD_MARKS_STORE (stud_id, stud_name, stud_marks)
